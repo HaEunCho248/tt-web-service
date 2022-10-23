@@ -1,0 +1,153 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap');
+
+
+* {
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;;
+    margin: 0;
+}
+
+.modalBackground{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: #FFFCFC; */
+    /* 배경에 픽스를 주고 투명도를 넣어줌 */
+    background-color: rgba(0,0,0,0.6);
+    z-index: 10000;
+}
+.challengeDetailModal {
+    /* background-color: #FFFCFC; */
+    width: 700px;
+    height: 900px;
+    position: relative;
+    box-sizing: border-box;
+    margin:50px auto;
+    background: #fff;
+    background-color: var(--color-white);
+    border-radius: 6px;
+}
+.challengeDetailModalContents{
+    margin: 0 auto;
+    /* margin-left: 10px; */
+    width: 100%;
+    position: relative;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.challengeModalCloseBtn{
+    position: relative;
+    margin-left: 640px;
+    margin-top: 10px;
+}
+
+.challengeDetailTop{
+    display: flex;
+    /* align-items: center;
+    flex-direction: row; */
+    margin: 0 10px 20px;
+    width: 100%;
+    height: 280;
+}
+
+.challengeTopLeft{
+    width: 310;
+    height: 240;
+    margin: 20px 5px 0;
+    /* margin: 0 auto; */
+    /* width: 100%; */
+    position: relative;
+    padding: 0 0 10px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.chanllegeDday{
+    margin: 10px 0 10px;
+    text-align: center;
+}
+
+.challengeTopRight{
+    width: 310;
+    height: 280;
+    margin: 20px 0 20px 20px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.challengeDetailMiddle{
+    display: flex;
+    margin: 0;
+    width: 100%;
+    height: 100;
+}
+
+.challengeManual{
+    width: 100%;
+    height: 250;
+    margin: 20px 0 20px;
+}
+
+.challengeManualDescription{
+    display: flex;
+    margin: 0;
+    width: 100%;
+    height: 400;
+    justify-content: space-evenly;
+}
+
+.challengeManualDescriptionLeft{
+    /* margin-left: 40; */
+    width: 100%;
+    position: relative;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.challengeManualDescriptionRight{
+    margin: 0 auto;
+    width: 100%;
+    position: relative;
+    padding: 0 20px 20px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.challengeJoinBtn{
+    border: 0;
+    outline: none;
+    background-color:#6A71E6;
+    border-radius: 6px;
+    /* height: ; */
+    color: #fff;
+    padding: 10px;
+    margin-top: 5px;
+    margin-left: 79px;
+    width: 500px;
+    font-size: large;
+    font-weight: 500;
+}
+
+
+
+
+
+
+
+
+
+
+

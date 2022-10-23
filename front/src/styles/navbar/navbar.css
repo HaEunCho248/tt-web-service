@@ -1,0 +1,131 @@
+*,*::after, *::before{
+    margin: 0;
+    box-sizing: border-box;
+   
+}
+
+li{
+    list-style: none;
+}
+a{
+    text-decoration: none;
+    color: #2A1A8F;
+    cursor: pointer;
+    
+}
+.logoSmall{
+    padding-bottom: 0.2rem;
+ 
+}
+a:hover{
+    color: #2A1A8F;
+}
+.nav{
+    position: fixed;
+    top: 0;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    height: 8.5vh;
+    background: #FFFFFF;
+    font-family: 'Nanum Gothic';
+    /* background-color: ; */
+
+}
+.nav-link{
+    font-size: 1.3rem;
+    color: #991C93;
+}
+.nav-link:hover{
+    color:  #991C93;
+}
+.nav-brand{
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 1.5rem;
+    padding-bottom: 0.2rem;
+    margin-left: 3%;
+}
+.nav-menu{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    gap: 2rem;
+    margin-right: 3%;
+   
+}
+.nav-toggler div{
+    width: 3rem;
+    height: 0.1rem;
+    margin: 0.3rem;
+    background: azure;
+    transition: 0.4s ease-in;
+}
+.nav-toggler{
+    cursor: pointer;
+    display: none;
+}
+.nav-toggler :hover{
+    cursor: pointer;
+    display: none;
+    color:  #98108D;
+}
+.nav-active{
+    margin-bottom: -2rem;
+}
+
+@media screen and (max-width: 768px) {
+    .nav-toggler{
+        display: block;
+    }
+    .nav-menu{
+        position: fixed;
+        top: 7vh;
+        right: 0;
+        width: 40%;
+        height: 93vh;
+        background: none;
+        flex-direction: column;
+        transform: translateX(100%);
+        transition: 1s ease-in
+    }
+}
+
+/* Nav Active */
+
+.nav-active{
+    transform: translateX(0);
+}
+
+/* Toggler Icon Animation */
+.toggle .line1{
+    transform: rotate(-45deg) translate(-4px, 5px);
+}
+.toggle .line2{
+    opacity: 0;
+}
+.toggle .line3{
+    transform: rotate(45deg) translate(4px, -5px);
+}
+
+.dropdown-menu.show{
+    display: flex;
+    background: white;
+    margin-top: none;
+    border: 2px solid rgb(104, 102, 217);
+    border-radius: none;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding-top: none;
+}
+.dropdownFont{
+    color: rgb(104, 102, 217);
+    margin: none;
+    font-size: 1.5rem;
+    
+}
+
+

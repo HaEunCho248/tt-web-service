@@ -1,0 +1,65 @@
+.userEditForm{
+    display: flex;
+    flex-direction: column;
+    justify-content: left;
+    width: 100%;
+    
+    
+}
+.imageUpload{
+    width: 50%;
+   margin-left: 21%;
+}
+.userEditForm h5{
+    margin-top: 4%;
+    margin-left: 8%;
+    
+}
+.userEditForm input{
+    width: 85%;
+    height: 5vh;
+    margin-top: 5%;
+    border-radius: 20px;
+}
+.nameInput{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+}
+.idInput{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+.descriptionInput{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.descriptionInput textarea{
+    height:15vh;
+    width: 85%;
+    border-radius: 20px;
+}
+.confirmBtn{
+    width: 30%;
+    height: 5vh;
+    border: 0;
+    outline: none;
+    background-color:#6A71E6;
+    border-radius: 6px;
+    /* height: ; */
+    color: #fff;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: large;
+    font-weight: 500;
+    margin-left: 5%;
+    margin-right: 5%;
+}
+.btnContainer{
+    display: flex;
+    justify-content: center;
+}

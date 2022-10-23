@@ -1,0 +1,144 @@
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Gothic:wght@400;700;800&family=Open+Sans:ital,wght@0,500;0,600;0,700;0,800;1,300;1,700;1,800&display=swap');
+
+/* Global */
+:root {
+    /* Color */
+    --color-white: #ffffff;
+    --color-light-white: #eeeeee;
+    --color-black: #4d4d4d;
+    --color-dark-grey: #4d4d4d;
+    --color-grey: #616161;
+    --color-light-grey: #7c7979;
+    --color-black: #000000;
+    --color-purple:#6A71E6;
+  
+    /* Font size */
+    --font-large: 66px;
+    --font-medium: 50px;
+    --font-regular: 35px;
+    --font-small: 18px;
+    --font-micro: 13px;
+  
+    /* Font weight */
+    --weight-bold: 700;
+    --weight-semi-bold: 600;
+    --weight-regular: 400;
+  
+    /* Size */
+    --size-border-radius: 6px;
+  
+  }
+
+* {
+    box-sizing: border-box;
+    font-family: 'Nanum Gothic', sans-serif;;
+    margin: 0;
+}
+
+.modalBackground{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-color: #FFFCFC; */
+    /* 배경에 픽스를 주고 투명도를 넣어줌 */
+    background-color: rgba(0,0,0,0.6);
+    z-index: 10000;
+}
+.LoginModal {
+    /* background-color: #FFFCFC; */
+    width: 460px;
+    height: 350px;
+    position: relative;
+    box-sizing: border-box;
+    margin:150px auto;
+    background: #fff;
+    background-color: var(--color-white);
+    border-radius: 6px;
+}
+.LoginModalContents{
+    margin: 0 auto;
+    /* margin-left: 10px; */
+    width: 100%;
+    position: relative;
+    padding: 0 30px 32px;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+.LoginCloseBtn{
+    position: relative;
+    margin-left: 370px;
+    margin-top: 10px;
+}
+
+.LoginModalContents {
+    font-size: 18px;
+    color: black;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+alert{
+    color: red;
+}
+
+/* a{
+    margin-top: 20px;
+} */
+
+p{
+    margin-top: 30px;
+}
+
+.border{
+    margin-top: 30px;
+}
+
+.SocialBtn{
+    margin-top: 40px;
+}
+
+.NaverBtn{
+    margin-right: 26px;
+}
+
+.LoginModalContents input{
+    width: 400px;
+    height: 45px;
+    margin-top: 20px;
+    border-radius: 6px;
+    border: 2px solid #CDCCCC;
+}
+.LoginModalContents input:focus{
+    outline: none;
+    border-color:#6A71E6;
+}
+
+.LoginBtn{
+    border: 0;
+    outline: none;
+    background-color:#6A71E6;
+    border-radius: 6px;
+    /* height: ; */
+    color: #fff;
+    padding: 10px;
+    margin-top: 38px;
+    font-size: large;
+    font-weight: 500;
+}
+
+.LoginBtn:disabled{
+    border: 0;
+    outline: none;
+    background-color: #7c7979;
+    border-radius: 6px;
+    /* height: ; */
+    color: #fff;
+    padding: 10px;
+    margin-top: 20px;
+    font-size: large;
+    font-weight: 500;
+}

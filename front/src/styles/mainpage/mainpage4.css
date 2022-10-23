@@ -1,0 +1,44 @@
+
+.mainPage4{
+    background-image: url('../../images/mainpage/MainPage4.png');
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    color: azure;
+  }
+  .mainPage4TextContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10vh;
+  }
+  .buttonContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .mainPage4 .main4Btn{
+    margin-top: 5%;
+  }
+  .footer{
+    margin-top: 15%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .textBox{
+    display: flex;
+  }
+  .missioncheck{
+    color: #2A1A8F;
+  }
+  
+  
+  
+  
+  

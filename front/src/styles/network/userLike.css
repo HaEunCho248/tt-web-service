@@ -1,0 +1,5 @@
+.likeButton{
+    display: flex;
+    
+    flex-direction: row;
+}

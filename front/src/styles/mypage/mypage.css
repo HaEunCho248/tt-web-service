@@ -1,0 +1,117 @@
+.myPage{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+}
+.myPageExceptNav{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100vh;
+    
+    border-right: 1px solid grey;
+}
+.userprofile{
+    width: 30%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    border-right: 2px solid #9C9C9C;
+    margin-top: 5%;
+    
+}
+.userprofile img{
+    border-radius: 50%;
+    width: 40%;
+    height: 20vh;
+    margin-top: 10%;
+}
+.userprofile button{
+    margin-top: 5%;
+}
+.userprofile h2{
+    margin-top: 5%;
+}
+.restPage{
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin-top: 5%;
+}
+.upperbar{
+    width: 100%;
+    height: 30vh;
+    display: flex;
+    flex-direction: row;
+
+}
+.point{
+    width: 33%;
+    height: 13vh;
+    border-right: 1.5px solid #9C9C9C;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 4%;
+    padding-top: 2%;
+    cursor: pointer;
+}
+.point h1{
+    margin-top: 5%;
+}
+.challange{
+    width: 33%;
+    height: 13vh;
+    border-right: 1.5px solid #9C9C9C;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 4%;
+    padding-top: 2%;
+    cursor: pointer;
+}
+.challange h1{
+    margin-top: 5%;
+}
+.liked{
+    width: 33%;
+    height: 13vh;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-top: 4%;
+    padding-top: 2%;
+    cursor: pointer;
+}
+.liked h1{
+    margin-top: 5%;
+}
+.btnContainer{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 3%;
+}
+
+.contents{
+    width: 100%;
+    height: 100vh;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.dropdownbtn{
+    margin-left: 3%;
+}
+.dropdownToggle{
+    background-color: #6A71E6;
+}
+.imageForm{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

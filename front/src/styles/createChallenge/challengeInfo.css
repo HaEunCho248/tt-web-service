@@ -1,0 +1,67 @@
+.inner {
+    position: relative;
+    box-sizing: border-box;
+    margin-left: 30px;
+    margin-top: 20px;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+
+.infoSpan {
+    position: relative;
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+.infoInput {
+    position: relative;
+    width: 280px;
+    height:35px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    border: 2px solid #CDCCCC;
+}
+.description{
+    text-decoration-style: none;
+    position: relative;
+    width: 280px;
+    height: 60px;
+    margin-bottom: 6px;
+    border-radius: 6px;
+    border: 2px solid #CDCCCC;
+}
+
+.infoInput:focus{
+    outline: none;
+    border-color:#6A71E6;
+}
+.description:focus{
+    outline: none;
+    border-color:#6A71E6;
+}
+
+.date{
+    display: flex;
+}
+
+.dateRange {
+    margin: 0;
+    margin-right: 3px; 
+}
+.date input {
+    width: 130px;
+    height:30px;
+
+    border-radius: 6px;
+    border: 2px solid #CDCCCC;
+    margin: 0;
+    /* text-align: center; */
+}
+.date input:focus {
+    outline: none;
+    border-color:#6A71E6;
+}

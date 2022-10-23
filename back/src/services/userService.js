@@ -1,130 +1,160 @@
-import { User } from "../db"; // from을 폴더(db) 로 설정 시, 디폴트로 index.js 로부터 import함.
+import { User } from "../models/User.js";
 import bcrypt from "bcrypt";
 import { v4 as uuidv4 } from "uuid";
 import jwt from "jsonwebtoken";
+import dotenv, { config } from "dotenv";
+dotenv.config();
 
-class userAuthService {
-  static async addUser({ name, email, password }) {
-    // 이메일 중복 확인
+class userService {
+  static async addUser({ email, password, confirmPassword, name }) {
     const user = await User.findByEmail({ email });
-    if (user) {
-      const errorMessage =
-        "이 이메일은 현재 사용중입니다. 다른 이메일을 입력해 주세요.";
-      return { errorMessage };
+
+    if (user.length) {
+      if (user) {
+        if (user[0].withdrawal == 0) {
+          const errorMessage = "이미 사용중인 email입니다.";
+          return errorMessage;
+        }
+      }
+    }
+    if (password !== confirmPassword) {
+      const errorMessage = "비밀번호가 일치하지 않습니다";
+      return errorMessage;
     }
 
-    // 비밀번호 해쉬화
-    const hashedPassword = await bcrypt.hash(password, 10);
+    const hashpassword = await bcrypt.hash(password, 10);
+    const userId = uuidv4();
 
-    // id 는 유니크 값 부여
-    const id = uuidv4();
-    const newUser = { id, name, email, password: hashedPassword };
+    const newUser = { userId, email, password: hashpassword, name };
+    const createNewUser = await User.createUser({ userId, newUser });
+    createNewUser.errorMessage = null;
 
-    // db에 저장
-    const createdNewUser = await User.create({ newUser });
-    createdNewUser.errorMessage = null; // 문제 없이 db 저장 완료되었으므로 에러가 없음.
-
-    return createdNewUser;
+    await User.createToken({ userId });
+    await User.createPoint({ userId });
+    return createNewUser;
   }
 
-  static async getUser({ email, password }) {
-    // 이메일 db에 존재 여부 확인
-    const user = await User.findByEmail({ email });
-    if (!user) {
-      const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+  static async userLogin({ email, password }) {
+    const data = await User.findByEmail({ email });
+    const user = data[0];
+
+    if (data.length) {
+      if (data) {
+        if (user.withdrawal == 1) {
+          const errorMessage = "존재하지 않는 계정입니다.";
+          return errorMessage;
+        }
+      }
     }
 
-    // 비밀번호 일치 여부 확인
-    const correctPasswordHash = user.password;
-    const isPasswordCorrect = await bcrypt.compare(
-      password,
-      correctPasswordHash
-    );
-    if (!isPasswordCorrect) {
-      const errorMessage =
-        "비밀번호가 일치하지 않습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+    const haspassword = user.password;
+    const isCorrect = await bcrypt.compare(password, haspassword);
+    if (!isCorrect) {
+      const errorMessage = "비밀번호가 일치하지 않습니다.";
+      return errorMessage;
     }
 
-    // 로그인 성공 -> JWT 웹 토큰 생성
-    const secretKey = process.env.JWT_SECRET_KEY || "jwt-secret-key";
-    const token = jwt.sign({ user_id: user.id }, secretKey);
+    const secretKey = process.env.JWT_SECRET_KEY;
+    const accessToken = jwt.sign({ userId: user.userId }, secretKey, {
+      expiresIn: "1h",
+    });
+    const refreshToken = jwt.sign({ userId: user.userId }, secretKey, {
+      expiresIn: "14d",
+    });
+    const userId = user.userId;
+    await User.tokenUpdate({ userId, refreshToken });
 
-    // 반환할 loginuser 객체를 위한 변수 설정
-    const id = user.id;
     const name = user.name;
-    const description = user.description;
-
     const loginUser = {
-      token,
-      id,
+      userId,
       email,
       name,
-      description,
+      accessToken,
+      refreshToken,
       errorMessage: null,
     };
-
     return loginUser;
   }
 
-  static async getUsers() {
-    const users = await User.findAll();
-    return users;
+  static async findCurrentUser({ userId }) {
+    const userData = await User.findByUserId({ userId });
+
+    return userData;
   }
 
-  static async setUser({ user_id, toUpdate }) {
-    // 우선 해당 id 의 유저가 db에 존재하는지 여부 확인
-    let user = await User.findById({ user_id });
-
-    // db에서 찾지 못한 경우, 에러 메시지 반환
+  static async updatePW({ userId, password }) {
+    const user = await User.findByUserId({ userId });
     if (!user) {
       const errorMessage =
-        "가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
-      return { errorMessage };
+        "비밀번호 변경 권한이 없습니다. 로그인 후 이용해주세요";
+      return errorMessage;
     }
-
-    // 업데이트 대상에 name이 있다면, 즉 name 값이 null 이 아니라면 업데이트 진행
-    if (toUpdate.name) {
-      const fieldToUpdate = "name";
-      const newValue = toUpdate.name;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
+    if (password) {
+      password = await bcrypt.hash(password, 10);
+      const updatePW = await User.updatePW({ userId, password });
+      return updatePW;
     }
-
-    if (toUpdate.email) {
-      const fieldToUpdate = "email";
-      const newValue = toUpdate.email;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    if (toUpdate.password) {
-      const fieldToUpdate = "password";
-      const newValue = bcrypt.hash(toUpdate.password, 10);
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    if (toUpdate.description) {
-      const fieldToUpdate = "description";
-      const newValue = toUpdate.description;
-      user = await User.update({ user_id, fieldToUpdate, newValue });
-    }
-
-    return user;
   }
 
-  static async getUserInfo({ user_id }) {
-    const user = await User.findById({ user_id });
+  static async updateUser(userId, name, email) {
+    const user = await User.findByUserId({ userId });
 
-    // db에서 찾지 못한 경우, 에러 메시지 반환
     if (!user) {
       const errorMessage =
-        "해당 이메일은 가입 내역이 없습니다. 다시 한 번 확인해 주세요.";
+        "user정보 수정 권한이 없습니다. 로그인 후 이용해주세요";
+      return errorMessage;
+    }
+    const updateUser = await User.updateUser(userId, name, email);
+    return updateUser;
+  }
+
+  static async getCurrentImg({ userId }) {
+    const newImg = await User.getUserImg({ userId });
+
+    if (!newImg) {
+      const errorMessage = "no iamge";
+      return errorMessage;
+    }
+    ("");
+    return newImg;
+  }
+
+  static async updateUserImg({ img, userId }) {
+    const user = await User.findByUserId({ userId });
+
+    if (!user) {
+      const errorMessage =
+        "프로필사진 수정 권한이 없습니다. 로그인 후 이용해주세요";
       return { errorMessage };
     }
+    console.log("서비스");
+    const updateimg = await User.EditImg({ userId, img });
+    return updateimg;
+  }
 
-    return user;
+  static async removeUserImg({ userId }) {
+    const user = await User.findByUserId({ userId });
+
+    if (!user) {
+      const errorMessage =
+        "프로필사진 수정 권한이 없습니다. 로그인 후 이용해주세요";
+      return { errorMessage };
+    }
+    const updateimg = await User.deleteUserImg({ userId });
+    return updateimg;
+  }
+
+  static async userWithdrawal({ userId, id, withdrawal }) {
+    if (userId !== id) {
+      const errorMessage = "UserId가 틀립니다.";
+      return errorMessage;
+    }
+
+    if (withdrawal == 1) {
+      let user = await User.findByUserId({ userId });
+      const newValue = withdrawal;
+      user = await User.updateWithdrawal({ userId, newValue });
+    }
   }
 }
-
-export { userAuthService };
+export { userService };

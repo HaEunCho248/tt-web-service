@@ -1,0 +1,85 @@
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model liked {
+  likedId     String    @id @unique(map: "likedId_UNIQUE") @db.VarChar(45)
+  userId      String    @db.VarChar(45)
+  challengeId Int
+  challenge   challenge @relation(fields: [challengeId], references: [challengeId])
+  user        user      @relation(fields: [userId], references: [userId])
+
+  @@index([challengeId], map: "liked_challengeId_fkey")
+  @@index([userId], map: "liked_userId_fkey")
+}
+
+model userToChallenge {
+  userToChallengeId Int       @id @unique @default(autoincrement())
+  userId            String    @db.VarChar(45)
+  challengeId       Int
+  challenge         challenge @relation(fields: [challengeId], references: [challengeId])
+  user              user      @relation(fields: [userId], references: [userId])
+
+  @@index([challengeId], map: "userToChallenge_challengeId_fkey")
+  @@index([userId], map: "userToChallenge_userId_fkey")
+}
+
+model point {
+  userId String @id @unique(map: "userId_UNIQUE") @db.VarChar(50)
+  point  Int?
+}
+
+model user {
+  userId           String            @id @db.VarChar(50)
+  name             String            @db.VarChar(10)
+  email            String            @db.VarChar(30)
+  password         String            @db.VarChar(100)
+  withdrawal       Int               @default(0) @db.TinyInt
+  img              String?           @db.Text
+  joinedChallenges joinedChallenge[]
+  liked            liked[]
+  refreshToken     refreshToken?
+  userToChallenge  userToChallenge[]
+}
+
+model refreshToken {
+  userId       String @unique(map: "userId_UNIQUE")
+  refreshToken String @db.VarChar(500)
+  user         user   @relation(fields: [userId], references: [userId])
+}
+
+model challenge {
+  challengeId      Int               @id @unique @default(autoincrement())
+  title            String            @db.VarChar(50)
+  holdUserId       String            @db.VarChar(50)
+  description      String
+  method           String
+  fromDate         String
+  toDate           String
+  mainImg          String            @db.Text
+  explainImg       String            @db.Text
+  createdAt        DateTime          @default(now())
+  updatedAt        DateTime          @updatedAt
+  joinedChallenges joinedChallenge[]
+  liked            liked[]
+  userToChallenge  userToChallenge[]
+}
+
+model joinedChallenge {
+  joinedId    Int       @id @unique @default(autoincrement())
+  countUpload Int
+  addedImage  String    @db.Text
+  description String
+  userId      String    @db.VarChar(50)
+  chalngId    Int
+  challenges  challenge @relation(fields: [chalngId], references: [challengeId])
+  user        user      @relation(fields: [userId], references: [userId])
+
+  @@index([chalngId], map: "joinedChallenge_chalngId_fkey")
+  @@index([userId], map: "joinedChallenge_userId_fkey")
+}
